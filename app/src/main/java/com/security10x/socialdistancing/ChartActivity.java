@@ -273,7 +273,7 @@ public class ChartActivity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
         ((TextView) parent.getChildAt(0)).setTextSize(18);
 
         // On selecting a spinner item
@@ -423,7 +423,7 @@ public class ChartActivity extends AppCompatActivity implements AdapterView.OnIt
         chart.setData(data);
 //        chart.setNoDataText("Loading the chart...");
         chart.getDescription().setText("");
-        chart.getLegend().setTextColor(Color.WHITE);
+        chart.getLegend().setTextColor(Color.BLACK);
         chart.setCenterText(String.format("Covid-19 Update for " + country));
 //        chart.getDescription().setPosition(1f, 250f);
         chart.animateY(1000);
