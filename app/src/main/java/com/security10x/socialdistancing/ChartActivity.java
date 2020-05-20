@@ -1,12 +1,19 @@
 package com.security10x.socialdistancing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +26,10 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.Gson;
+import com.security10x.socialdistancing.Adapter.FeedAdapter;
+import com.security10x.socialdistancing.Common.HTTPDataHandler;
+import com.security10x.socialdistancing.Model.RSSObject;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -36,6 +47,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ChartActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    //RSS link
+//    private final String RSS_link="https://services.india.gov.in/feed/rss?cat_id=5&ln=en";
 
     private static final String TAG = "ChartActivity";
     Spinner spinner;
@@ -415,7 +429,6 @@ public class ChartActivity extends AppCompatActivity implements AdapterView.OnIt
         chart.animateY(1000);
         chart.invalidate();
     }
-
 }
 
 class MyColorTemplate {

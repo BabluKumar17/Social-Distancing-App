@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -29,6 +30,8 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, intentFilter);
 
         Intent blintent=new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+//        blintent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
         startActivity(blintent);
     }
 
@@ -229,12 +233,12 @@ public class MainActivity extends AppCompatActivity {
         String distance = "";
 
         if ((rssi > -45) || (-45 > rssi && rssi >= -47) || (-47 > rssi && rssi >= -51) || (-51 > rssi && rssi >= -54)) {
-//            Log.d(TAG, "calculateDistance: " + rssi + " rssi " + rssi);
+            Log.d(TAG, "calculateDistance: " + rssi + " rssi " + rssi);
             distance = "0 meter";
             displayNotification();
             createNotificationChannel();
-            v.vibrate(1000);
-            alertUser();
+            v.vibrate(1500);
+//            alertUser();
 
         }
         else {
@@ -245,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
     public void alertUser(){
         Uri alarmSound =
                 RingtoneManager.getDefaultUri (RingtoneManager.TYPE_RINGTONE);
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), alarmSound);
-        mp.start();
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), alarmSound);
+        mediaPlayer.start();
     }
 }
