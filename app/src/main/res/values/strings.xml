@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Social Distancing</string>
+    <string name="stay_positive">Stay Positive</string>
+    <string name="stay_updated">Stay Updated</string>
+    <string name="stay_informed">Stay Informed</string>
+    <string name="helpline_numbers">Helpline Numbers</string>
+    <string name="select_country">Select Country:</string>
+    <string name="author">Author</string>
+    <string name="quote">Quote</string>
+    <string name="_2017_04_04_12_30_00">2017-04-04 12:30:00</string>
+    <string name="Please_maintain_social_distancing">Please maintain social distancing.</string>
+    <string name="Social_Distancing_App">Social Distancing App</string>
+    <string name="Bluetooth_Not_Supported">Bluetooth Not Supported</string>
+    <string name="social_distancing_app">Social Distancing App</string>
+    <string name="this_app_alerts_you_when_your_social_distance_is_endangered">This app alerts you when your social distance is endangered.</string>
+    <string name="channel_name">Social Distancing App</string>
+    <string name="channel_description">Please maintain social distance</string>
+</resources>

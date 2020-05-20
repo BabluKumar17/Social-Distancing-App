@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:weightSum="5"
+    tools:context=".ChartActivity">
+
+    <RelativeLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo__1_"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="4dp"
+                android:text="@string/social_distancing_app"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_weight="3"
+        android:columnCount="2"
+        android:padding="10dp"
+        android:rowCount="4"
+        android:background="@drawable/bg"
+        android:layout_height="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            android:clickable="true"
+            android:id="@+id/quote"
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/user" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/stay_positive"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            android:clickable="true"
+            android:id="@+id/resource"
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/addusers" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/stay_informed"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            android:clickable="true"
+            android:id="@+id/piechart"
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/newspaper" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/stay_updated"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            android:clickable="true"
+            android:id="@+id/helpline_numbers"
+            app:cardCornerRadius="5dp"
+            >
+            <LinearLayout
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/settings" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/helpline_numbers"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:layout_marginLeft="15dp" -->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="#FFF"
+        android:text="@string/this_app_alerts_you_when_your_social_distance_is_endangered"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        />
+</LinearLayout>
