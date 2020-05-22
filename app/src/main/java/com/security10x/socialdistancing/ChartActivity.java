@@ -304,7 +304,7 @@ public class ChartActivity extends AppCompatActivity implements AdapterView.OnIt
                 .url("https://covid-193.p.rapidapi.com/statistics?country=" + Country)
                 .get()
                 .addHeader("x-rapidapi-host", "covid-193.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "b99b36e994msh21677e97c7bc0cep1b859cjsn6e4f8d1df511")
+                .addHeader("x-rapidapi-key", "") // please your own api-key
                 .build();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
