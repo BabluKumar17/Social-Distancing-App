@@ -10,4 +10,5 @@ This app turns on your Bluetooth and scans other devices in the range of 2 meter
 # Who is this app targeted to?
 This app is especially designed for the workplace.
 
+-------------------------------------------------------------------------------------------------------------------------
 Disclaimer: The app isn't reliable at alerting users after Android 7.1. However, I haven't been able to test it on other versions as I have only one physical device.
