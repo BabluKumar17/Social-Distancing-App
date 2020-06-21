@@ -7,8 +7,19 @@
     android:background="@drawable/gradient_bg"
     tools:context=".ResourceActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white">
+    </androidx.appcompat.widget.Toolbar>
+
     <ListView
         android:id="@+id/mypdflist"
+        android:layout_below="@id/toolbar"
+        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         ></ListView>

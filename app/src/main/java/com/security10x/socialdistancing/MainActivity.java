@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         piechart = (CardView) findViewById(R.id.piechart);
         helpline_nums = (CardView) findViewById(R.id.helpline_numbers);
 
-        checkBTPermissions();
+//        checkBTPermissions();
 //        checkPermission();
 
         quote.setOnClickListener(new View.OnClickListener() {
@@ -103,23 +103,24 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, intentFilter);
 
         Intent blintent=new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-//        blintent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+
+        blintent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
         startActivity(blintent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void checkBTPermissions() {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-            int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-            if (permissionCheck != 0) {
-
-                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
-            }
-        }else{
-//            Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
-        }
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void checkBTPermissions() {
+//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+//            int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
+//            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
+//            if (permissionCheck != 0) {
+//
+//                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
+//            }
+//        }else{
+////            Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
+//        }
+//    }
 
     public void checkPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
