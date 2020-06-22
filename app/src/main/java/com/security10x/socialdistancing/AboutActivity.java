@@ -18,7 +18,7 @@ public class AboutActivity extends AppCompatActivity {
 
         String text = "<div>\n" +
                 "   <div>\n" +
-                "       This app turns on your Bluetooth and scans other devices in the range of 2 meters. If it finds one, it will alert you immediately to maintain your distance. Please accept all the permissions the app requires for it to work.\n" +
+                "       This app turns on your Bluetooth and scans other devices in the range of 2 meters or less. If it finds one, it will alert you immediately to maintain your distance. Please accept all the permissions the app requires for it to work.\n" +
                 "   </div>\n" +
                 "   <div>\n" +
                 "       This is an open-source project. If you're a developer and would like to contribute to the project, I welcome you to submit your changes. <br><br> Github URL: https://github.com/BabluKumar17/Social-Distancing-App/" +
