@@ -9,7 +9,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.Manifest;
-import android.accessibilityservice.AccessibilityService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
@@ -19,19 +18,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.utils.Utils;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "social_distancing";
     private static final String TAG = "MainActivity";
     CardView quote, resource, piechart, helpline_nums;
+    TextView textView1;
+    Button about_app;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +61,28 @@ public class MainActivity extends AppCompatActivity {
         resource = (CardView) findViewById(R.id.resource);
         piechart = (CardView) findViewById(R.id.piechart);
         helpline_nums = (CardView) findViewById(R.id.helpline_numbers);
+        textView1 = (TextView) findViewById(R.id.textView1);
+        about_app = (Button) findViewById(R.id.aboutBtn);
 
-//        checkBTPermissions();
-//        checkPermission();
+        about_app.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        new InternetCheck(new InternetCheck.Consumer() {
+            @Override
+            public void accept(Boolean internet) {
+                if (!internet){
+                    String text = "<font color='#EE0000'>You're offline. Please connect to the internet.</font>";
+                    textView1.setText(Html.fromHtml(text));
+                    textView1.setTextSize(13f);
+                    Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         quote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mHandler = new Handler();
+
+        Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        startActivity(enableBTIntent);
+
         startRepeatingTask();
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -103,24 +133,10 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         registerReceiver(mReceiver, intentFilter);
 
-        Intent blintent=new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        Intent blintent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         blintent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
         startActivityForResult(blintent, REQUEST_DEVICE_DISCOVERABLE);
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    private void checkBTPermissions() {
-//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-//            int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-//            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-//            if (permissionCheck != 0) {
-//
-//                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
-//            }
-//        }else{
-////            Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
-//        }
-//    }
 
     public void checkPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -201,8 +217,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enableBTIntent);
             mBluetoothAdapter.startDiscovery();
 //            checkBTPermissions();
 
@@ -231,26 +245,37 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void calculateDistance(int rssi) {
-        String distance = "";
 
-        if ((rssi > -45) || (-45 > rssi && rssi >= -47) || (-47 > rssi && rssi >= -51) || (-51 > rssi && rssi >= -54)) {
-            Log.d(TAG, "calculateDistance: " + rssi + " rssi " + rssi);
-            distance = "0 meter";
+        //      0 meter             1 meter                      2 meters
+        if ((rssi > -45) || (-45 > rssi && rssi >= -47)|| (-47 > rssi && rssi >= -51)){
+            Log.d(TAG, "calculateDistance: " + rssi);
             displayNotification();
             createNotificationChannel();
             v.vibrate(1500);
-//            alertUser();
-
-        }
-        else {
-            distance = "Far away";
+            alertUser();
         }
     }
 
     public void alertUser(){
-        Uri alarmSound =
-                RingtoneManager.getDefaultUri (RingtoneManager.TYPE_RINGTONE);
-        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), alarmSound);
+        Uri alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), alertSound);
         mediaPlayer.start();
     }
+}
+
+class InternetCheck extends AsyncTask<Void,Void,Boolean> {
+
+    private Consumer mConsumer;
+    public  interface Consumer { void accept(Boolean internet); }
+
+    public  InternetCheck(Consumer consumer) { mConsumer = consumer; execute(); }
+
+    @Override protected Boolean doInBackground(Void... voids) { try {
+        Socket sock = new Socket();
+        sock.connect(new InetSocketAddress("8.8.8.8", 53), 1500);
+        sock.close();
+        return true;
+    } catch (IOException e) { return false; } }
+
+    @Override protected void onPostExecute(Boolean internet) { mConsumer.accept(internet); }
 }

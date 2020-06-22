@@ -8,13 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.security10x.socialdistancing.Adapter.FeedAdapter;
 import com.security10x.socialdistancing.Common.HTTPDataHandler;
 import com.security10x.socialdistancing.Model.RSSObject;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class QuoteActivity extends AppCompatActivity {
 
@@ -31,15 +40,22 @@ public class QuoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle("Quotes Of The Day");
-        setSupportActionBar(toolbar);
-
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager  = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        loadRSS();
+        new InternetCheck(new InternetCheck.Consumer() {
+            @Override
+            public void accept(Boolean internet) {
+                if (!internet) {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection. Please connect to the internet.", Toast.LENGTH_SHORT).show();
+                }else{
+                    toolbar = (Toolbar) findViewById(R.id.toolbar);
+                    toolbar.setTitle("Quotes Of The Day");
+                    setSupportActionBar(toolbar);
+                    recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    loadRSS();
+                }
+            }
+        });
     }
 
     private void loadRSS() {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/Social_Distancing_App"
+        android:padding="15dp"
+        android:layout_margin="15dp"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:textStyle="bold"
+        android:id="@+id/aboutText"
+
+        />
+</LinearLayout>
