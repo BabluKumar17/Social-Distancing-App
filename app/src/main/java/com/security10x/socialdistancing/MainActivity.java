@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private int mInterval = 5000;
     private Context mContext;
     private Handler mHandler;
+    private static final int REQUEST_DEVICE_DISCOVERABLE = 3;
     Vibrator v;
     private static final String CHANNEL_ID = "social_distancing";
     private static final String TAG = "MainActivity";
@@ -103,9 +104,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, intentFilter);
 
         Intent blintent=new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-
         blintent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
-        startActivity(blintent);
+        startActivityForResult(blintent, REQUEST_DEVICE_DISCOVERABLE);
     }
 
 //    @RequiresApi(api = Build.VERSION_CODES.M)
