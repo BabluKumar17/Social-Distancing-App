@@ -40,6 +40,8 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppThemeDashboard" />
+
+        <service android:name=".BluetoothService"/>
     </application>
 
 </manifest>
